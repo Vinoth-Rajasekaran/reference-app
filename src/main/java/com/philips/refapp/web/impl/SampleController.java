@@ -1,0 +1,42 @@
+/*
+ * (C) Koninklijke Philips Electronics N.V. 2014
+ * 
+ * All rights are reserved. Reproduction or transmission in whole or in part, in any form or by any
+ * means, electronic, mechanical or otherwise, is prohibited without the prior written consent of
+ * the copyright owner.
+ * 
+ * File name: SampleController.java
+ */
+
+package com.philips.refapp.web.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.philips.refapp.exception.GlobalException;
+import com.philips.refapp.service.impl.SampleServiceImpl;
+import com.philips.refapp.web.AbstractController;
+
+/**
+ * @author Sushanta Dutta
+ *
+ */
+
+@RestController
+public class SampleController extends AbstractController {
+	
+	@Autowired
+	@Qualifier(value="sampleService")
+	private SampleServiceImpl sampleService;
+	
+	@RequestMapping("/viewjson")
+	public ResponseEntity<String> viewJson(){
+//		return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		throw new GlobalException("Exception", new Exception("Wrong Date"), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+}
