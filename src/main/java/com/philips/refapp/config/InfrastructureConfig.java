@@ -32,6 +32,8 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import com.philips.refapp.config.interceptor.EntityInterceptor;
+
 @Configuration
 @EnableTransactionManagement(proxyTargetClass = true)
 @PropertySource({ "classpath:com/philips/refapp/config/infrastructure.properties" })
@@ -88,6 +90,8 @@ public class InfrastructureConfig {
 				env.getProperty("hibernate.dialect"));
 		properties.put("hibernate.generate_statistics",
 				env.getProperty("hibernate.generate_statistics"));
+		properties.put("hibernate.ejb.interceptor",new EntityInterceptor());
+		
 		// Second level cache configuration and so on.
 		return properties;
 	}
