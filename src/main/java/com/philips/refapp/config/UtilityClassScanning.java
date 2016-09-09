@@ -13,13 +13,15 @@ package com.philips.refapp.config;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import com.philips.refapp.exception.resolver.GlobalExceptionResolver;
+
 /**
  * @author Sushanta Dutta
  *
  */
 @Configuration
-@ComponentScan(basePackages = { "com.philips.refapp.exception.resolver" })
-public class Utils {
+@ComponentScan(basePackageClasses={GlobalExceptionResolver.class})
+public class UtilityClassScanning {
 
 		//
 

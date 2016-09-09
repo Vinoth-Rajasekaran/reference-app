@@ -17,8 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.philips.refapp.exception.GlobalException;
-import com.philips.refapp.service.impl.SampleServiceImpl;
+import com.philips.refapp.domain.SampleEntity;
+import com.philips.refapp.service.BaseService;
 import com.philips.refapp.web.AbstractController;
 
 /**
@@ -28,15 +28,16 @@ import com.philips.refapp.web.AbstractController;
 
 @RestController
 public class SampleController extends AbstractController {
-	
+
 	@Autowired
-	@Qualifier(value="sampleService")
-	private SampleServiceImpl sampleService;
-	
+	@Qualifier(value = "sampleService")
+	private BaseService sampleService;
+
 	@RequestMapping("/viewjson")
-	public ResponseEntity<String> viewJson(){
-//		return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-		throw new GlobalException("Exception", new Exception("Wrong Date"), HttpStatus.INTERNAL_SERVER_ERROR);
+	public ResponseEntity<SampleEntity> viewJson() {
+		SampleEntity sampleEntity = new SampleEntity();
+		return new ResponseEntity<SampleEntity>(
+				sampleService.doSomething(sampleEntity), HttpStatus.ACCEPTED);
 	}
 
 }

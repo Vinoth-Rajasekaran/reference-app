@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.philips.refapp.repository.impl.SampleDaoImpl;
+import com.philips.refapp.domain.SampleEntity;
+import com.philips.refapp.repository.CRUDRepository;
+import com.philips.refapp.service.BaseService;
 
 /**
  * @author Sushanta Dutta
@@ -23,10 +25,15 @@ import com.philips.refapp.repository.impl.SampleDaoImpl;
  */
 @Service(value="sampleService")
 @Transactional
-public class SampleServiceImpl {
+public class SampleServiceImpl implements BaseService{
 	
 	@Autowired
-	@Qualifier(value="sampleDao")
-	private SampleDaoImpl daoImpl;
+	@Qualifier(value="sampleEntityRepo")
+	private CRUDRepository<SampleEntity, Long> crudRepository;
+
+	@Override
+	public SampleEntity doSomething(SampleEntity entity) {
+		return crudRepository.create(entity);
+	}
 
 }

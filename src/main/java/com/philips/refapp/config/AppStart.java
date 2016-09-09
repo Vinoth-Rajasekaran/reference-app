@@ -27,7 +27,7 @@ import org.springframework.core.env.Environment;
  */
 @Configuration
 @Import(value = { DataSourceConfig.class, InfrastructureConfig.class,
-		RepositoryConfig.class, ServiceConfig.class,Utils.class })
+		RepositoryConfig.class, ServiceConfig.class,UtilityClassScanning.class })
 public class AppStart {
 
 	private static final Logger LOG = LoggerFactory.getLogger(AppStart.class);

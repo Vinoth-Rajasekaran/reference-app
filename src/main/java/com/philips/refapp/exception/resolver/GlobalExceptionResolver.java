@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
+import com.philips.refapp.exception.GlobalException;
+
 /**
  * @author Sushanta Dutta
  *
@@ -27,6 +29,12 @@ public class GlobalExceptionResolver {
 	@ExceptionHandler(value = Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ResponseEntity<?> exception(Exception exception, WebRequest request) {
+		return new ResponseEntity<String>(new String(exception.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@ExceptionHandler(value = GlobalException.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public ResponseEntity<?> exception1(Exception exception, WebRequest request) {
 		return new ResponseEntity<String>(new String(exception.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
