@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.philips.refapp.config.interceptor;
+package com.philips.refapp.interceptor;
 
 import java.io.Serializable;
 import java.util.Iterator;

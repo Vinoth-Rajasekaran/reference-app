@@ -32,7 +32,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.philips.refapp.config.interceptor.EntityInterceptor;
+import com.philips.refapp.interceptor.EntityInterceptor;
 
 @Configuration
 @EnableTransactionManagement(proxyTargetClass = true)
