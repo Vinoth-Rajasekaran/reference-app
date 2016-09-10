@@ -27,7 +27,7 @@ import com.philips.refapp.service.BaseService;
  */
 @Service(value="sampleService")
 @Transactional
-public class SampleServiceImpl implements BaseService{
+public class SampleServiceImpl implements BaseService<SampleEntity>{
 	
 	/** The crud repository. */
 	@Autowired

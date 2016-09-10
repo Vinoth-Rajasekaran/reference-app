@@ -31,7 +31,7 @@ import com.philips.refapp.util.CacheExceptionMsg;
 @WebAppConfiguration
 @ContextHierarchy({ @ContextConfiguration(classes = AppStart.class),
 		@ContextConfiguration(classes = WebMvcConfig.class) })
-@ActiveProfiles("test")
+@ActiveProfiles("dev")
 public class SpringConfigTest {
 
 	/** The wac. */

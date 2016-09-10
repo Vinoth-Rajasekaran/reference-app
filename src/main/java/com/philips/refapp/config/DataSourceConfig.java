@@ -12,6 +12,7 @@
  * @author Sushanta Dutta
  */
 package com.philips.refapp.config;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,42 +23,45 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.jndi.JndiObjectFactoryBean;
+import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 
 /**
- * Depending active spring profile, lookup RDBMS DataSource from JNDI or from an embbeded H2 database.
+ * Depending active spring profile, lookup RDBMS DataSource from JNDI or from an
+ * embbeded H2 database.
  */
 @Configuration
 @PropertySource({ "classpath:com/philips/refapp/config/datasource.properties" })
 public class DataSourceConfig {
 
-    /** The env. */
-    @Autowired
-    private Environment env;
+	/** The env. */
+	@Autowired
+	private Environment env;
 
-    /**
-     * Data source.
-     *
-     * @return the jndi object factory bean
-     * @throws IllegalArgumentException the illegal argument exception
-     */
-    @Bean
-    @Profile("dev")
-    public JndiObjectFactoryBean dataSource() throws IllegalArgumentException {
-        JndiObjectFactoryBean dataSource = new JndiObjectFactoryBean();
-        dataSource.setExpectedType(DataSource.class);
-        dataSource.setJndiName(env.getProperty("jdbc.jndiDataSource"));
-        return dataSource;
-    }
+	/**
+	 * Data source.
+	 *
+	 * @return the jndi object factory bean
+	 * @throws IllegalArgumentException
+	 *             the illegal argument exception
+	 */
+	@Bean
+	@Profile("dev")
+	public DataSource dataSource() throws IllegalArgumentException {
+		final JndiDataSourceLookup dsLookup = new JndiDataSourceLookup();
+		dsLookup.setResourceRef(true);
+		DataSource dataSource = dsLookup.getDataSource("jdbc/refapp_config");
+		return dataSource;
+	}
 
-    /**
-     * Test data source.
-     *
-     * @return the data source
-     */
-    @Bean
-    @Profile("test")
-    public DataSource testDataSource() {
-        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
-    }
+	/**
+	 * Test data source.
+	 *
+	 * @return the data source
+	 */
+	@Bean
+	@Profile("test")
+	public DataSource testDataSource() {
+		return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
+				.build();
+	}
 }

@@ -24,6 +24,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -83,7 +84,7 @@ public class InfrastructureConfig {
 	public EntityManagerFactory entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(dataSource);
-		em.setPersistenceUnitName("javaconfigSamplePersistenceUnit");
+		em.setPersistenceUnitName("persistenceUnit");
 		em.setPackagesToScan("com.philips.refapp.domain");
 		em.setJpaVendorAdapter(jpaVendorAdaper());
 		em.setJpaPropertyMap(additionalProperties());
@@ -99,12 +100,15 @@ public class InfrastructureConfig {
 	@Bean
 	public JpaVendorAdapter jpaVendorAdaper() {
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		vendorAdapter.setDatabase(env.getProperty("jpa.database",
-				Database.class));
-		vendorAdapter.setShowSql(env.getProperty("jpa.showSql", Boolean.class));
-		vendorAdapter.setGenerateDdl(env.getProperty("jpa.generateDdl",
-				Boolean.class));
+		vendorAdapter.setDatabase(Database.POSTGRESQL);
+		vendorAdapter.setShowSql(Boolean.TRUE);
+		vendorAdapter.setGenerateDdl(Boolean.TRUE);
 		return vendorAdapter;
+	}
+
+	@Bean
+	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+		return new PersistenceExceptionTranslationPostProcessor();
 	}
 
 	/**
@@ -114,14 +118,14 @@ public class InfrastructureConfig {
 	 */
 	private Map<String, Object> additionalProperties() {
 		Map<String, Object> properties = new HashMap<String, Object>();
-		properties.put("hibernate.validator.apply_to_ddl", "false");
-		properties.put("hibernate.validator.autoregister_listeners", "false");
-		properties.put("hibernate.dialect",
-				env.getProperty("hibernate.dialect"));
-		properties.put("hibernate.generate_statistics",
-				env.getProperty("hibernate.generate_statistics"));
-		properties.put("hibernate.ejb.interceptor",new EntityInterceptor());
-		
+		properties.put("hibernate.hbm2ddl.auto", "update");
+		properties.put("hibernate.validator.apply_to_ddl", "true");
+		properties.put("hibernate.validator.autoregister_listeners", "true");
+		properties.put("hibernate.dialect","org.hibernate.dialect.PostgreSQLDialect");
+		properties.put("hibernate.generate_statistics",env.getProperty("hibernate.generate_statistics"));
+		properties.put("hibernate.default_schema", "exception_messages");
+		properties.put("hibernate.ejb.interceptor", new EntityInterceptor());
+
 		// Second level cache configuration and so on.
 		return properties;
 	}

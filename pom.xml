@@ -28,6 +28,7 @@
 		<version.junit>4.11</version.junit>
 		<version.commons-dbcp>1.4</version.commons-dbcp>
 		<version.fasterxml>2.7.5</version.fasterxml>
+		<version.postgres>9.4-1200-jdbc41</version.postgres>
 
 
 		<!-- Version of maven plugins -->
@@ -44,6 +45,12 @@
 	</properties>
 
 	<dependencies>
+		<!-- PostGres -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4-1200-jdbc41</version>
+		</dependency>
 		<!-- FasterXML -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

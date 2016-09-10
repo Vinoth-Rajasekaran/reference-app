@@ -10,6 +10,8 @@
 
 package com.philips.refapp.web.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.philips.refapp.domain.Exception_Messages;
 import com.philips.refapp.domain.SampleEntity;
 import com.philips.refapp.service.BaseService;
 import com.philips.refapp.web.AbstractController;
@@ -33,7 +36,11 @@ public class SampleController extends AbstractController {
 	/** The sample service. */
 	@Autowired
 	@Qualifier(value = "sampleService")
-	private BaseService sampleService;
+	private BaseService<SampleEntity> sampleService;
+	
+	@Autowired
+	@Qualifier(value = "exceptionMessagesServiceImpl")
+	private BaseService<Exception_Messages> exceptionService;
 
 	/**
 	 * View json.
@@ -41,10 +48,12 @@ public class SampleController extends AbstractController {
 	 * @return the response entity
 	 */
 	@RequestMapping("/viewjson")
-	public ResponseEntity<SampleEntity> viewJson() {
-		SampleEntity sampleEntity = new SampleEntity();
-		return new ResponseEntity<SampleEntity>(
-				sampleService.doSomething(sampleEntity), HttpStatus.ACCEPTED);
+	public ResponseEntity<?> viewJson() {
+		Exception_Messages exception_Messages = new Exception_Messages();
+		exception_Messages.setCreatedDate(new Date());
+		exception_Messages.setLastUpdatedDate(new Date());
+		exception_Messages.setMessage("Resource Not Found");
+		return new ResponseEntity<Exception_Messages>(exceptionService.doSomething(exception_Messages), HttpStatus.OK);
 	}
 
 }
