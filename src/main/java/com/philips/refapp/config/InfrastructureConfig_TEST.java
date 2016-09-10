@@ -53,6 +53,8 @@ public class InfrastructureConfig_TEST {
 	@Bean
 	public DataSource dataSource() {
 		return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
+//				.addScript("classpath:sql/schema.sql")
+//                .addScript("classpath:sql/import-users.sql")
 				.build();
 	}
 
