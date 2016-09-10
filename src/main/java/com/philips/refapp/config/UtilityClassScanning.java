@@ -25,6 +25,4 @@ import com.philips.refapp.util.CacheExceptionMsg;
 @ComponentScan(basePackageClasses={GlobalExceptionResolver.class,CacheExceptionMsg.class})
 public class UtilityClassScanning {
 
-		//
-
 }

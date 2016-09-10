@@ -4,12 +4,15 @@
 package com.philips.refapp.interceptor;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Iterator;
 
 import org.hibernate.CallbackException;
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.Transaction;
 import org.hibernate.type.Type;
+
+import com.philips.refapp.domain.AbstractEntity;
 
 /**
  * The Class EntityInterceptor.
@@ -95,7 +98,11 @@ public class EntityInterceptor extends EmptyInterceptor {
 	@Override
 	public boolean onSave(Object entity, Serializable id, Object[] state,
 			String[] propertyNames, Type[] types) {
-		
+		if(entity instanceof AbstractEntity){
+			AbstractEntity abstractEntity = (AbstractEntity)entity;
+			abstractEntity.setCreatedDate(new Date());
+			abstractEntity.setLastUpdatedDate(new Date());
+		}
 		return super.onSave(entity, id, state, propertyNames, types);
 	}
 	

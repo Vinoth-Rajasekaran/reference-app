@@ -15,7 +15,6 @@ import org.springframework.aop.framework.Advised;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.util.ReflectionUtils;
 import org.springframework.stereotype.Component;
@@ -31,7 +30,6 @@ import com.philips.refapp.repository.CRUDRepository;
  *
  */
 @Component
-@PropertySource({ "classpath:com/philips/refapp/config/codemsg.properties" })
 public final class CacheExceptionMsg {
 
 	@Autowired

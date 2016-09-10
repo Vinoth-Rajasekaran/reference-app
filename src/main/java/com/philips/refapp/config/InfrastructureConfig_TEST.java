@@ -126,7 +126,7 @@ public class InfrastructureConfig_TEST {
 		properties.put("hibernate.validator.apply_to_ddl", Boolean.TRUE);
 		properties.put("hibernate.validator.autoregister_listeners", Boolean.TRUE);
 		properties.put("hibernate.dialect",env.getProperty("test.hibernate.dialect"));
-		properties.put("hibernate.generate_statistics",env.getProperty("hibernate.generate_statistics"));
+		properties.put("hibernate.generate_statistics",env.getProperty("test.hibernate.generate_statistics"));
 		properties.put("hibernate.ejb.interceptor", new EntityInterceptor());
 		// Second level cache configuration and so on.
 		return properties;
