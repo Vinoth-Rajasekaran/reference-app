@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.philips.refapp.domain.Exception_Messages;
 import com.philips.refapp.domain.SampleEntity;
-import com.philips.refapp.exception.GlobalException;
 import com.philips.refapp.service.BaseService;
 import com.philips.refapp.web.AbstractController;
 
@@ -56,8 +55,8 @@ public class SampleController extends AbstractController {
 		exception_Messages.setLastUpdatedDate(new Date());
 		exception_Messages.setCode(UUID.randomUUID().toString());
 		exception_Messages.setMessage("Resource Not Found");
-		throw new GlobalException("96ece51c-51bd-426e-8286-ba2f6bc85d8a", new Exception("96ece51c-51bd-426e-8286-ba2f6bc85d8a"), HttpStatus.EXPECTATION_FAILED);
-//		return new ResponseEntity<Exception_Messages>(exceptionService.doSomething(exception_Messages), HttpStatus.OK);
+//		throw new GlobalException("96ece51c-51bd-426e-8286-ba2f6bc85d8a", new Exception("96ece51c-51bd-426e-8286-ba2f6bc85d8a"), HttpStatus.EXPECTATION_FAILED);
+		return new ResponseEntity<Exception_Messages>(exceptionService.doSomething(exception_Messages), HttpStatus.OK);
 	}
 
 }

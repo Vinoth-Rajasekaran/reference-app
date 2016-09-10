@@ -5,46 +5,55 @@
  * means, electronic, mechanical or otherwise, is prohibited without the prior written consent of
  * the copyright owner.
  * 
- * File name: AbstractBaseDao.java
+ * File name: AbstractCRUDRespository.java
  */
 package com.philips.refapp.repository.impl;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import com.philips.refapp.domain.AbstractEntity;
 import com.philips.refapp.repository.CRUDRepository;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AbstractCRUDRespository.
  *
  * @author Sushanta Dutta
- * @param <T> the generic type
- * @param <PK> the generic type
+ * @param <T>
+ *            the generic type
+ * @param <PK>
+ *            the generic type
  */
 public abstract class AbstractCRUDRespository<T extends AbstractEntity, PK extends Serializable>
 		implements CRUDRepository<T, PK> {
 
-	/** The entity manager. */
+	/** The entity manager factory. */
+	@PersistenceContext
 	private EntityManager entityManager;
-	
+
 	/** The entity class. */
 	private Class<T> entityClass;
 
 	/**
-	 * Sets the entity manager.
-	 *
-	 * @param entityManager the new entity manager
+	 * Inits the.
 	 */
-	protected void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
+	@SuppressWarnings("unchecked")
+	@PostConstruct
+	private void init() {
+		ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+		this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
 	}
 
-	/* (non-Javadoc)
-	 * @see com.philips.refapp.repository.CRUDRepository#create(java.lang.Object)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.philips.refapp.repository.CRUDRepository#create(java.lang.Object)
 	 */
 	@Override
 	public T create(T t) {
@@ -52,34 +61,49 @@ public abstract class AbstractCRUDRespository<T extends AbstractEntity, PK exten
 		return t;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.philips.refapp.repository.CRUDRepository#read(java.io.Serializable)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.philips.refapp.repository.CRUDRepository#read(java.io.Serializable)
 	 */
 	@Override
 	public T read(PK id) {
 		return this.entityManager.find(entityClass, id);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.philips.refapp.repository.CRUDRepository#update(java.lang.Object)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.philips.refapp.repository.CRUDRepository#update(java.lang.Object)
 	 */
 	@Override
 	public T update(T t) {
 		return this.entityManager.merge(t);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.philips.refapp.repository.CRUDRepository#delete(java.lang.Object)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.philips.refapp.repository.CRUDRepository#delete(java.lang.Object)
 	 */
 	@Override
 	public void delete(T t) {
 		t = this.entityManager.merge(t);
 		this.entityManager.remove(t);
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.philips.refapp.repository.CRUDRepository#findAll()
+	 */
 	@SuppressWarnings("unchecked")
-	public List<T> findAll(){
-		return this.entityManager.createQuery("select em from Exception_Messages em").getResultList();
+	public List<T> findAll() {
+		String query = "select entity from "+this.entityClass.getName()+" entity";
+		return this.entityManager.createQuery(query).getResultList();
 	}
 
 }
