@@ -26,7 +26,7 @@ import org.springframework.core.env.Environment;
  * Configuration of the business, persistence and security layers.
  */
 @Configuration
-@Import(value = { DataSourceConfig.class, InfrastructureConfig.class,
+@Import(value = { InfrastructureConfig_DEV.class,InfrastructureConfig_TEST.class,
 		RepositoryConfig.class, ServiceConfig.class,UtilityClassScanning.class })
 public class AppStart {
 

@@ -11,7 +11,6 @@ import org.hibernate.EmptyInterceptor;
 import org.hibernate.Transaction;
 import org.hibernate.type.Type;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class EntityInterceptor.
  *

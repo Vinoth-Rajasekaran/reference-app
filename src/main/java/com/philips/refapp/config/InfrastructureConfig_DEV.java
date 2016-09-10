@@ -22,9 +22,11 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -40,16 +42,28 @@ import com.philips.refapp.interceptor.EntityInterceptor;
  */
 @Configuration
 @EnableTransactionManagement(proxyTargetClass = true)
-@PropertySource({ "classpath:com/philips/refapp/config/infrastructure.properties" })
-public class InfrastructureConfig {
+@PropertySource({ "classpath:com/philips/refapp/config/infrastructure_dev.properties" })
+@Profile(value = { "dev" })
+public class InfrastructureConfig_DEV {
 
 	/** The env. */
 	@Autowired
 	Environment env;
 
-	/** The data source. */
-	@Autowired
-	private DataSource dataSource;
+	/**
+	 * Data source.
+	 *
+	 * @return the jndi object factory bean
+	 * @throws IllegalArgumentException
+	 *             the illegal argument exception
+	 */
+	@Bean
+	public DataSource dataSource() throws IllegalArgumentException {
+		final JndiDataSourceLookup dsLookup = new JndiDataSourceLookup();
+		dsLookup.setResourceRef(true);
+		DataSource dataSource = dsLookup.getDataSource(env.getProperty("dev.jdbc.datasource"));
+		return dataSource;
+	}
 
 	/**
 	 * Transaction manager.
@@ -83,7 +97,7 @@ public class InfrastructureConfig {
 	@Bean
 	public EntityManagerFactory entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-		em.setDataSource(dataSource);
+		em.setDataSource(dataSource());
 		em.setPersistenceUnitName("persistenceUnit");
 		em.setPackagesToScan("com.philips.refapp.domain");
 		em.setJpaVendorAdapter(jpaVendorAdaper());
@@ -118,13 +132,18 @@ public class InfrastructureConfig {
 	 */
 	private Map<String, Object> additionalProperties() {
 		Map<String, Object> properties = new HashMap<String, Object>();
-		properties.put("hibernate.hbm2ddl.auto", "update");
-		properties.put("hibernate.validator.apply_to_ddl", "true");
-		properties.put("hibernate.validator.autoregister_listeners", "true");
-		properties.put("hibernate.dialect","org.hibernate.dialect.PostgreSQLDialect");
-		properties.put("hibernate.generate_statistics",env.getProperty("hibernate.generate_statistics"));
-		properties.put("hibernate.default_schema", "exception_messages");
+		properties.put("hibernate.hbm2ddl.auto",
+				env.getProperty("dev.hibernate.hbm2ddl.auto"));
+		properties.put("hibernate.validator.apply_to_ddl",
+				env.getProperty("dev.hibernate.validator.apply_to_ddl"));
+		properties.put("hibernate.validator.autoregister_listeners", env
+				.getProperty("dev.hibernate.validator.autoregister_listeners"));
+		properties.put("hibernate.dialect", env.getProperty("dev.hibernate.dialect"));
+		properties.put("hibernate.generate_statistics",
+				env.getProperty("dev.hibernate.generate_statistics"));
 		properties.put("hibernate.ejb.interceptor", new EntityInterceptor());
+		properties.put("hibernate.default_schema",
+				env.getProperty("dev.hibernate.default_schema"));
 
 		// Second level cache configuration and so on.
 		return properties;
