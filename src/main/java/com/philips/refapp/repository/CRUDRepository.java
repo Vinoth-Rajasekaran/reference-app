@@ -4,6 +4,7 @@
 package com.philips.refapp.repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.philips.refapp.exception.GlobalException;
 
@@ -50,4 +51,12 @@ public interface CRUDRepository<T, PK extends Serializable> {
 	 * @throws GlobalException the global exception
 	 */
 	public void delete(T t) throws GlobalException;
+	
+	/**
+	 * Find all.
+	 *
+	 * @return the list
+	 * @throws GlobalException the global exception
+	 */
+	public List<T> findAll() throws GlobalException;
 }

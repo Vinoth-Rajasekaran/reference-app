@@ -47,7 +47,7 @@ public class GlobalExceptionResolver {
 	@ExceptionHandler(value = Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ResponseEntity<?> exception(Exception exception, WebRequest request) {
-		return new ResponseEntity<String>(exception.getMessage(),
+		return new ResponseEntity<String>(errorCodeMsg.get(exception.getMessage()),
 				HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
@@ -63,7 +63,7 @@ public class GlobalExceptionResolver {
 	@ExceptionHandler(value = GlobalException.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ResponseEntity<?> exception1(Exception exception, WebRequest request) {
-		return new ResponseEntity<String>(new String(exception.getMessage()),
+		return new ResponseEntity<String>(errorCodeMsg.get(exception.getMessage()),
 				HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 

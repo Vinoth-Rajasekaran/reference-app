@@ -10,6 +10,7 @@
 package com.philips.refapp.repository.impl;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -74,6 +75,11 @@ public abstract class AbstractCRUDRespository<T extends AbstractEntity, PK exten
 	public void delete(T t) {
 		t = this.entityManager.merge(t);
 		this.entityManager.remove(t);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<T> findAll(){
+		return this.entityManager.createQuery("select em from Exception_Messages em").getResultList();
 	}
 
 }
