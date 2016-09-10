@@ -14,6 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import com.philips.refapp.exception.resolver.GlobalExceptionResolver;
+import com.philips.refapp.util.CacheExceptionMsg;
 
 /**
  * The Class UtilityClassScanning.
@@ -21,7 +22,7 @@ import com.philips.refapp.exception.resolver.GlobalExceptionResolver;
  * @author Sushanta Dutta
  */
 @Configuration
-@ComponentScan(basePackageClasses={GlobalExceptionResolver.class})
+@ComponentScan(basePackageClasses={GlobalExceptionResolver.class,CacheExceptionMsg.class})
 public class UtilityClassScanning {
 
 		//
