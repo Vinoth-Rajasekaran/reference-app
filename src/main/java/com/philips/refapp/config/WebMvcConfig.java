@@ -13,6 +13,7 @@
  */
 package com.philips.refapp.config;
 
+import java.util.List;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
@@ -24,13 +25,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
+import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class WebMvcConfig.
  */
@@ -151,5 +157,44 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addFormatters(FormatterRegistry formatterRegistry) {
 		// add your custom formatters
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry)
+	 */
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+
+		super.addInterceptors(registry);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#configureMessageConverters(java.util.List)
+	 */
+	@Override
+	public void configureMessageConverters(
+			List<HttpMessageConverter<?>> converters) {
+
+		super.configureMessageConverters(converters);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#configureHandlerExceptionResolvers(java.util.List)
+	 */
+	@Override
+	public void configureHandlerExceptionResolvers(
+			List<HandlerExceptionResolver> exceptionResolvers) {
+
+		super.configureHandlerExceptionResolvers(exceptionResolvers);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#addReturnValueHandlers(java.util.List)
+	 */
+	@Override
+	public void addReturnValueHandlers(
+			List<HandlerMethodReturnValueHandler> returnValueHandlers) {
+
+		super.addReturnValueHandlers(returnValueHandlers);
 	}
 }

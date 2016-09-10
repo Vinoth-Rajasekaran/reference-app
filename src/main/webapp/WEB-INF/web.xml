@@ -21,6 +21,14 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<filter>
+		<filter-name>requestProcessingFilter</filter-name>
+		<filter-class>com.philips.refapp.filter.RequestProcessingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>requestProcessingFilter</filter-name>
+		<servlet-name>refapp</servlet-name>
+	</filter-mapping>
 	<servlet>
 		<servlet-name>refapp</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -32,10 +40,10 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>com.philips.refapp.config.WebMvcConfig</param-value>
 		</init-param>
-		<!-- <init-param>
+		<init-param>
 			<param-name>throwExceptionIfNoHandlerFound</param-name>
 			<param-value>true</param-value>
-		</init-param> -->
+		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>

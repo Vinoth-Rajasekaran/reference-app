@@ -21,7 +21,6 @@ import com.philips.refapp.domain.SampleEntity;
 import com.philips.refapp.service.BaseService;
 import com.philips.refapp.web.AbstractController;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SampleController.
  *
