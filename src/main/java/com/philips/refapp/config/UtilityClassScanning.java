@@ -16,8 +16,9 @@ import org.springframework.context.annotation.Configuration;
 import com.philips.refapp.exception.resolver.GlobalExceptionResolver;
 
 /**
- * @author Sushanta Dutta
+ * The Class UtilityClassScanning.
  *
+ * @author Sushanta Dutta
  */
 @Configuration
 @ComponentScan(basePackageClasses={GlobalExceptionResolver.class})

@@ -31,9 +31,16 @@ import org.springframework.jndi.JndiObjectFactoryBean;
 @PropertySource({ "classpath:com/philips/refapp/config/datasource.properties" })
 public class DataSourceConfig {
 
+    /** The env. */
     @Autowired
     private Environment env;
 
+    /**
+     * Data source.
+     *
+     * @return the jndi object factory bean
+     * @throws IllegalArgumentException the illegal argument exception
+     */
     @Bean
     @Profile("dev")
     public JndiObjectFactoryBean dataSource() throws IllegalArgumentException {
@@ -43,6 +50,11 @@ public class DataSourceConfig {
         return dataSource;
     }
 
+    /**
+     * Test data source.
+     *
+     * @return the data source
+     */
     @Bean
     @Profile("test")
     public DataSource testDataSource() {

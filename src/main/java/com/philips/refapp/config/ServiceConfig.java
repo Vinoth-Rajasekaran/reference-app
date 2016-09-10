@@ -33,6 +33,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+/**
+ * The Class ServiceConfig.
+ */
 @Configuration
 @EnableAsync
 @EnableScheduling
@@ -41,8 +44,14 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @ComponentScan(basePackages = { "com.philips.refapp.service" })
 public class ServiceConfig implements AsyncConfigurer {
     
+    /** The log. */
     private final Logger log = LoggerFactory.getLogger(ServiceConfig.class);
 
+    /**
+     * Cache manager.
+     *
+     * @return the cache manager
+     */
     @Bean
     public CacheManager cacheManager() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
@@ -53,6 +62,11 @@ public class ServiceConfig implements AsyncConfigurer {
         return cacheManager;
     }
 
+    /**
+     * Default cache.
+     *
+     * @return the cache
+     */
     @Bean
     public Cache defaultCache() {
         ConcurrentMapCacheFactoryBean cacheFactoryBean = new ConcurrentMapCacheFactoryBean();
@@ -62,6 +76,9 @@ public class ServiceConfig implements AsyncConfigurer {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.scheduling.annotation.AsyncConfigurer#getAsyncExecutor()
+     */
     @Override
     public Executor getAsyncExecutor() {
         log.debug("Creating Async Task Executor");

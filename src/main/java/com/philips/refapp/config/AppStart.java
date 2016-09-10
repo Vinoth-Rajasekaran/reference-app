@@ -30,8 +30,10 @@ import org.springframework.core.env.Environment;
 		RepositoryConfig.class, ServiceConfig.class,UtilityClassScanning.class })
 public class AppStart {
 
+	/** The Constant LOG. */
 	private static final Logger LOG = LoggerFactory.getLogger(AppStart.class);
 
+	/** The env. */
 	@Autowired
 	private Environment env;
 

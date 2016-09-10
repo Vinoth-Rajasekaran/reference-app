@@ -20,6 +20,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.context.WebApplicationContext;
 
+/**
+ * The Class SpringConfigTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextHierarchy({ 
@@ -28,9 +31,13 @@ import org.springframework.web.context.WebApplicationContext;
 @ActiveProfiles("test")
 public class SpringConfigTest {
 
+    /** The wac. */
     @Autowired
     private WebApplicationContext wac;
 
+    /**
+     * Spring configuration.
+     */
     @Test
     public void springConfiguration() {
         assertNotNull(wac);

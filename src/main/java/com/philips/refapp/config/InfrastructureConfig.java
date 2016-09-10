@@ -34,17 +34,27 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import com.philips.refapp.interceptor.EntityInterceptor;
 
+/**
+ * The Class InfrastructureConfig.
+ */
 @Configuration
 @EnableTransactionManagement(proxyTargetClass = true)
 @PropertySource({ "classpath:com/philips/refapp/config/infrastructure.properties" })
 public class InfrastructureConfig {
 
+	/** The env. */
 	@Autowired
 	Environment env;
 
+	/** The data source. */
 	@Autowired
 	private DataSource dataSource;
 
+	/**
+	 * Transaction manager.
+	 *
+	 * @return the jpa transaction manager
+	 */
 	@Bean
 	public JpaTransactionManager transactionManager() {
 		JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
@@ -52,6 +62,11 @@ public class InfrastructureConfig {
 		return jpaTransactionManager;
 	}
 
+	/**
+	 * Transaction template.
+	 *
+	 * @return the transaction template
+	 */
 	@Bean
 	public TransactionTemplate transactionTemplate() {
 		TransactionTemplate transactionTemplate = new TransactionTemplate();
@@ -59,6 +74,11 @@ public class InfrastructureConfig {
 		return transactionTemplate;
 	}
 
+	/**
+	 * Entity manager factory.
+	 *
+	 * @return the entity manager factory
+	 */
 	@Bean
 	public EntityManagerFactory entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -71,6 +91,11 @@ public class InfrastructureConfig {
 		return em.getObject();
 	}
 
+	/**
+	 * Jpa vendor adaper.
+	 *
+	 * @return the jpa vendor adapter
+	 */
 	@Bean
 	public JpaVendorAdapter jpaVendorAdaper() {
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -82,6 +107,11 @@ public class InfrastructureConfig {
 		return vendorAdapter;
 	}
 
+	/**
+	 * Additional properties.
+	 *
+	 * @return the map
+	 */
 	private Map<String, Object> additionalProperties() {
 		Map<String, Object> properties = new HashMap<String, Object>();
 		properties.put("hibernate.validator.apply_to_ddl", "false");

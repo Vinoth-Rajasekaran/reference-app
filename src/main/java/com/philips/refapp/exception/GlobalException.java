@@ -11,21 +11,26 @@ package com.philips.refapp.exception;
 
 import org.springframework.http.HttpStatus;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Sushanta Dutta
+ * The Class GlobalException.
  *
+ * @author Sushanta Dutta
  */
 public class GlobalException extends RuntimeException {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 402901696366014022L;
+	
+	/** The http status. */
 	private HttpStatus httpStatus;
 
 	/**
-	 * @param message
-	 * @param cause
+	 * Instantiates a new global exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
+	 * @param httpStatus the http status
 	 */
 	public GlobalException(String message, Throwable cause,
 			HttpStatus httpStatus) {
@@ -34,8 +39,9 @@ public class GlobalException extends RuntimeException {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Gets the http status.
+	 *
+	 * @return the http status
 	 */
 	public HttpStatus getHttpStatus() {
 		return httpStatus;

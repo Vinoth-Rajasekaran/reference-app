@@ -21,18 +21,26 @@ import com.philips.refapp.domain.SampleEntity;
 import com.philips.refapp.service.BaseService;
 import com.philips.refapp.web.AbstractController;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Sushanta Dutta
+ * The Class SampleController.
  *
+ * @author Sushanta Dutta
  */
 
 @RestController
 public class SampleController extends AbstractController {
 
+	/** The sample service. */
 	@Autowired
 	@Qualifier(value = "sampleService")
 	private BaseService sampleService;
 
+	/**
+	 * View json.
+	 *
+	 * @return the response entity
+	 */
 	@RequestMapping("/viewjson")
 	public ResponseEntity<SampleEntity> viewJson() {
 		SampleEntity sampleEntity = new SampleEntity();

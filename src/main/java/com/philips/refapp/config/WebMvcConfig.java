@@ -31,38 +31,51 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
+/**
+ * The Class WebMvcConfig.
+ */
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "com.philips.refapp.web" })
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
+	/** The Constant CACHE_PERIOD. */
 	private static final int CACHE_PERIOD = 31556926; // one year
 
+	/** The request mapping handler adapter. */
 	@Autowired
 	private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
 
+	/**
+	 * Inits the.
+	 */
 	@PostConstruct
 	public void init() {
 		requestMappingHandlerAdapter.setIgnoreDefaultModelOnRedirect(true);
 	}
 
-//	@Bean
-//	public ViewResolver viewResolver() {
-//		// Example: the 'info' view logical name is mapped to the file
-//		// '/WEB-INF/jsp/info.jsp'
-//		InternalResourceViewResolver bean = new InternalResourceViewResolver();
-//		bean.setViewClass(JstlView.class);
-//		bean.setPrefix("/WEB-INF/jsp/");
-//		bean.setSuffix(".jsp");
-//		return bean;
-//	}
+	// @Bean
+	// public ViewResolver viewResolver() {
+	// // Example: the 'info' view logical name is mapped to the file
+	// // '/WEB-INF/jsp/info.jsp'
+	// InternalResourceViewResolver bean = new InternalResourceViewResolver();
+	// bean.setViewClass(JstlView.class);
+	// bean.setPrefix("/WEB-INF/jsp/");
+	// bean.setSuffix(".jsp");
+	// return bean;
+	// }
 
-	@Bean(name="contentNegotiationManagerFactoryBean")
+	/**
+	 * Content negotiation manager.
+	 *
+	 * @return the content negotiation manager factory bean
+	 */
+	@Bean(name = "contentNegotiationManagerFactoryBean")
 	public ContentNegotiationManagerFactoryBean contentNegotiationManager() {
 		Properties properties = new Properties();
 		properties.setProperty("xml", "application/xml");
 		properties.setProperty("json", "application/json");
-//		properties.setProperty("html", "application/html");
+		// properties.setProperty("html", "application/html");
 
 		ContentNegotiationManagerFactoryBean contentNegotiationManager = new ContentNegotiationManagerFactoryBean();
 		contentNegotiationManager.setFavorParameter(true);
@@ -73,6 +86,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		return contentNegotiationManager;
 	}
 
+	/**
+	 * Reloadable resource bundle message source.
+	 *
+	 * @return the reloadable resource bundle message source
+	 */
 	@Bean(name = "messageSource")
 	public ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
@@ -94,12 +112,28 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	// .setCachePeriod(CACHE_PERIOD);
 	// }
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
+	 * #addViewControllers(org.springframework.web.servlet.config.annotation.
+	 * ViewControllerRegistry)
+	 */
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		// registry.addViewController("/about"); // the about page did not
 		// required any controller
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
+	 * #configureDefaultServletHandling(org.springframework.web.servlet.config.
+	 * annotation.DefaultServletHandlerConfigurer)
+	 */
 	@Override
 	public void configureDefaultServletHandling(
 			DefaultServletHandlerConfigurer configurer) {
@@ -107,6 +141,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		configurer.enable();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
+	 * #addFormatters(org.springframework.format.FormatterRegistry)
+	 */
 	@Override
 	public void addFormatters(FormatterRegistry formatterRegistry) {
 		// add your custom formatters
