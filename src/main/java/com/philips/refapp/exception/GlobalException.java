@@ -11,7 +11,6 @@ package com.philips.refapp.exception;
 
 import org.springframework.http.HttpStatus;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GlobalException.
  *

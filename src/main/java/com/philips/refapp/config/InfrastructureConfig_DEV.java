@@ -19,6 +19,8 @@ import java.util.Map;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,6 +48,7 @@ import com.philips.refapp.interceptor.EntityInterceptor;
 @Profile(value = { "dev" })
 public class InfrastructureConfig_DEV {
 
+	private static final Logger LOG = LoggerFactory.getLogger(InfrastructureConfig_DEV.class);
 	/** The env. */
 	@Autowired
 	Environment env;
@@ -62,6 +65,7 @@ public class InfrastructureConfig_DEV {
 		final JndiDataSourceLookup dsLookup = new JndiDataSourceLookup();
 		dsLookup.setResourceRef(true);
 		DataSource dataSource = dsLookup.getDataSource(env.getProperty("dev.jdbc.datasource"));
+		LOG.info("Data Source Created");
 		return dataSource;
 	}
 
@@ -74,6 +78,7 @@ public class InfrastructureConfig_DEV {
 	public JpaTransactionManager transactionManager() {
 		JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
 		jpaTransactionManager.setEntityManagerFactory(entityManagerFactory());
+		LOG.info("JpaTransactionManager Created");
 		return jpaTransactionManager;
 	}
 
@@ -86,6 +91,7 @@ public class InfrastructureConfig_DEV {
 	public TransactionTemplate transactionTemplate() {
 		TransactionTemplate transactionTemplate = new TransactionTemplate();
 		transactionTemplate.setTransactionManager(transactionManager());
+		LOG.info("TransactionTemplate Created");
 		return transactionTemplate;
 	}
 
@@ -103,6 +109,7 @@ public class InfrastructureConfig_DEV {
 		em.setJpaVendorAdapter(jpaVendorAdaper());
 		em.setJpaPropertyMap(additionalProperties());
 		em.afterPropertiesSet();
+		LOG.info("EntityManagerFactory Created");
 		return em.getObject();
 	}
 
@@ -117,6 +124,7 @@ public class InfrastructureConfig_DEV {
 		vendorAdapter.setDatabase(Database.POSTGRESQL);
 		vendorAdapter.setShowSql(Boolean.TRUE);
 		vendorAdapter.setGenerateDdl(Boolean.TRUE);
+		LOG.info("JpaVendorAdapter Created");
 		return vendorAdapter;
 	}
 

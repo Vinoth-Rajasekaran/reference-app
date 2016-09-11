@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.philips.refapp.domain.Exception_Messages;
 import com.philips.refapp.domain.SampleEntity;
+import com.philips.refapp.exception.GlobalException;
 import com.philips.refapp.service.BaseService;
 import com.philips.refapp.web.AbstractController;
 
@@ -49,10 +50,8 @@ public class SampleController extends AbstractController {
 	 */
 	@RequestMapping("/viewjson")
 	public ResponseEntity<?> viewJson() {
-		Exception_Messages exception_Messages = new Exception_Messages();
-		exception_Messages.setCode(UUID.randomUUID().toString());
-		exception_Messages.setMessage("Resource Not Found");
-		return new ResponseEntity<Exception_Messages>(exceptionService.doSomething(exception_Messages), HttpStatus.OK);
+		throw new GlobalException("Unprocessable Entity", null, HttpStatus.UNPROCESSABLE_ENTITY);
+//		return new ResponseEntity<Exception_Messages>(exceptionService.doSomething(exception_Messages), HttpStatus.OK);
 	}
 
 }

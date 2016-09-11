@@ -12,6 +12,8 @@
  * @author Sushanta Dutta
  */
 package com.philips.refapp.config;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -24,5 +26,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories("com.philips.refapp.repository")
 @ComponentScan(basePackages={"com.philips.refapp.repository"})
 public class RepositoryConfig {
-    // 
+	private static final Logger LOG = LoggerFactory.getLogger(RepositoryConfig.class);
 }

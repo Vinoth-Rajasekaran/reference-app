@@ -10,6 +10,8 @@
 
 package com.philips.refapp.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,5 +26,7 @@ import com.philips.refapp.util.CacheExceptionMsg;
 @Configuration
 @ComponentScan(basePackageClasses={GlobalExceptionResolver.class,CacheExceptionMsg.class})
 public class UtilityClassScanning {
+	@SuppressWarnings("unused")
+	private static final Logger LOG = LoggerFactory.getLogger(UtilityClassScanning.class);
 
 }

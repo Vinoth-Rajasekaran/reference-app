@@ -18,6 +18,8 @@ import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -36,7 +38,6 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class WebMvcConfig.
  */
@@ -45,6 +46,8 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 @ComponentScan(basePackages = { "com.philips.refapp.web" })
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
+	@SuppressWarnings("unused")
+	private static final Logger LOG = LoggerFactory.getLogger(WebMvcConfig.class);
 	/** The Constant CACHE_PERIOD. */
 	private static final int CACHE_PERIOD = 31556926; // one year
 

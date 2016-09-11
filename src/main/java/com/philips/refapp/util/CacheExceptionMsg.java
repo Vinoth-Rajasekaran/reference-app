@@ -42,7 +42,6 @@ public final class CacheExceptionMsg {
 
 	@PostConstruct
 	private void init() {
-		List<Exception_Messages> exception_Messages = crudRespository.findAll();
 		if (wac instanceof ListableBeanFactory) {
 			final String[] beanNames = ((ListableBeanFactory) wac)
 					.getBeanNamesForAnnotation(ExceptionMsgAware.class);
@@ -81,6 +80,7 @@ public final class CacheExceptionMsg {
 							for (Annotation annotation : field
 									.getDeclaredAnnotations()) {
 								if (annotation instanceof ExceptionMsg) {
+									List<Exception_Messages> exception_Messages = crudRespository.findAll();
 									if (field.getType().isAssignableFrom(
 											Map.class)) {
 										Map<String, String> map = new HashMap<String, String>();
