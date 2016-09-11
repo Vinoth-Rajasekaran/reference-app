@@ -10,8 +10,6 @@
 
 package com.philips.refapp.web.impl;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -38,7 +36,7 @@ public class SampleController extends AbstractController {
 	@Autowired
 	@Qualifier(value = "sampleService")
 	private BaseService<SampleEntity> sampleService;
-	
+
 	@Autowired
 	@Qualifier(value = "exceptionMessagesServiceImpl")
 	private BaseService<Exception_Messages> exceptionService;
@@ -48,10 +46,15 @@ public class SampleController extends AbstractController {
 	 *
 	 * @return the response entity
 	 */
-	@RequestMapping("/viewjson")
+	@RequestMapping(value = "/viewjson", produces = { "application/json",
+			"application/xml" }, consumes = { "application/json",
+			"application/xml" })
 	public ResponseEntity<?> viewJson() {
-		throw new GlobalException("Unprocessable Entity", null, HttpStatus.UNPROCESSABLE_ENTITY);
-//		return new ResponseEntity<Exception_Messages>(exceptionService.doSomething(exception_Messages), HttpStatus.OK);
+		throw new GlobalException("Unprocessable Entity", null,
+				HttpStatus.UNPROCESSABLE_ENTITY);
+		// return new
+		// ResponseEntity<Exception_Messages>(exceptionService.doSomething(exception_Messages),
+		// HttpStatus.OK);
 	}
 
 }

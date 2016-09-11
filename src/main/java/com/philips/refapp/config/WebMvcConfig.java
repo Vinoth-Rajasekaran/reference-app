@@ -63,17 +63,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		requestMappingHandlerAdapter.setIgnoreDefaultModelOnRedirect(true);
 	}
 
-	// @Bean
-	// public ViewResolver viewResolver() {
-	// // Example: the 'info' view logical name is mapped to the file
-	// // '/WEB-INF/jsp/info.jsp'
-	// InternalResourceViewResolver bean = new InternalResourceViewResolver();
-	// bean.setViewClass(JstlView.class);
-	// bean.setPrefix("/WEB-INF/jsp/");
-	// bean.setSuffix(".jsp");
-	// return bean;
-	// }
-
 	/**
 	 * Content negotiation manager.
 	 *
@@ -84,14 +73,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		Properties properties = new Properties();
 		properties.setProperty("xml", "application/xml");
 		properties.setProperty("json", "application/json");
-		// properties.setProperty("html", "application/html");
 
 		ContentNegotiationManagerFactoryBean contentNegotiationManager = new ContentNegotiationManagerFactoryBean();
-		contentNegotiationManager.setFavorParameter(true);
+		contentNegotiationManager.setFavorPathExtension(Boolean.TRUE);
+		contentNegotiationManager.setFavorParameter(Boolean.TRUE);
 		contentNegotiationManager.setMediaTypes(properties);
-		contentNegotiationManager
-				.setDefaultContentType(MediaType.APPLICATION_JSON);
-
+		contentNegotiationManager.setDefaultContentType(MediaType.APPLICATION_JSON);
 		return contentNegotiationManager;
 	}
 
@@ -146,7 +133,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void configureDefaultServletHandling(
 			DefaultServletHandlerConfigurer configurer) {
-		// Serving static files using the Servlet container's default Servlet.
 		configurer.enable();
 	}
 
