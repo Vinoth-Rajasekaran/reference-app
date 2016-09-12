@@ -1,10 +1,5 @@
-/*
- * (C) Koninklijke Philips Electronics N.V. 2014
- * 
- * All rights are reserved. Reproduction or transmission in whole or in part, in any form or by any
- * means, electronic, mechanical or otherwise, is prohibited without the prior written consent of
- * the copyright owner.
- * 
+
+ /* 
  * File name: RequestProcessingFilter.java
  */
 package com.philips.refapp.filter;
@@ -19,7 +14,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 /**
- * The Class RequestProcessingFilter.
+ * The Class RequestProcessingFilter. 
+ * 
+ * Use a filter class only if absolutely necessary, our recommendation is to avoid a filter class for Spring based applications.
+ * Instead try to address the pre handle and post handler part of Spring interceptors.
  *
  * @author Sushanta Dutta
  */
